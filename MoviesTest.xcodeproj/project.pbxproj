@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -91,6 +91,9 @@
 		1EB4E50B26472DDD009AD997 /* MoviesTest */ = {
 			isa = PBXGroup;
 			children = (
+				1EB4E53026473282009AD997 /* Features */,
+				1EB4E52F2647327B009AD997 /* Common */,
+				1EB4E52E26473271009AD997 /* Foundation */,
 				1EB4E50C26472DDD009AD997 /* AppDelegate.swift */,
 				1EB4E50E26472DDD009AD997 /* SceneDelegate.swift */,
 				1EB4E51026472DDD009AD997 /* ViewController.swift */,
@@ -111,6 +114,51 @@
 			path = MoviesTestTests;
 			sourceTree = "<group>";
 		};
+		1EB4E52E26473271009AD997 /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
+		1EB4E52F2647327B009AD997 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		1EB4E53026473282009AD997 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				1EB4E533264732AA009AD997 /* EpisodeDetails */,
+				1EB4E5322647329F009AD997 /* TVShowDetails */,
+				1EB4E5312647328D009AD997 /* TVShows */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		1EB4E5312647328D009AD997 /* TVShows */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TVShows;
+			sourceTree = "<group>";
+		};
+		1EB4E5322647329F009AD997 /* TVShowDetails */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TVShowDetails;
+			sourceTree = "<group>";
+		};
+		1EB4E533264732AA009AD997 /* EpisodeDetails */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = EpisodeDetails;
+			sourceTree = "<group>";
+		};
 		456A312C40D77F8A72B815A7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -128,7 +176,6 @@
 				7AEA52A8509CE366B6B40060 /* Pods-MoviesTestTests.debug.xcconfig */,
 				8090813105E3BAC3113E920A /* Pods-MoviesTestTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
