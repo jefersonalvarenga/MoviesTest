@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 
 
-enum HomeViewState {
+enum TVShowsViewState {
     case initial
     case loading
     case dataLoaded
@@ -20,7 +20,7 @@ enum HomeViewState {
 
 class TVShowsViewModel {
     
-    var viewState: BehaviorSubject<HomeViewState> = BehaviorSubject(value: .initial)
+    var viewState: BehaviorSubject<TVShowsViewState> = BehaviorSubject(value: .initial)
     var movies: [Movie] = []
     var searchMovies: [Movie] = []
     private var backupMovies: [Movie] = []
@@ -81,11 +81,12 @@ class TVShowsViewModel {
             self.isFetchInProgress = false
             self.searchMovies = movies.map({ (item) -> Movie in
                 self.isFetchInProgress = false
-                return Movie(name:
+                return Movie(id: item.show.id, name:
                                 item.show.name,
                                 image: item.show.image,
                                 summary: item.show.summary,
-                                score: item.score)
+                                score: item.score,
+                                schedule: item.show.schedule, genres: item.show.genres)
             })
             self.viewState.onNext(.dataLoaded)
         }, onFailure: {(error) in

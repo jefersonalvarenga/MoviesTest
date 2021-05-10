@@ -6,8 +6,6 @@
 //  Copyright © 2021 Jeferson Alvarenga. All rights reserved.
 //
 
-import Foundation
-
 class TVShowsNetwortService {
     
     private let network = Networking()

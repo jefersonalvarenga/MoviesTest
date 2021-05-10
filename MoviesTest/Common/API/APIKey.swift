@@ -10,4 +10,6 @@ struct APIKey {
     static let baseURL = "http://api.tvmaze.com/%@"
     static let shows = "shows?page/%d"
     static let search = "search/shows?q=%@"
+    static let season = "shows/%d/seasons"
+    static let epidodes = "seasons/%d/episodes"
 }
