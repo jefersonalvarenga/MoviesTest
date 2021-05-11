@@ -28,7 +28,7 @@ class TVShowsTableViewCell: UITableViewCell {
     
     lazy var lblTitle: UILabel = {
         let lbl = UILabel()
-        lbl.font = .boldSystemFont(ofSize: 30)
+        lbl.font = .boldSystemFont(ofSize: 20)
         lbl.textColor = .black
         lbl.numberOfLines = 0
         return lbl
@@ -59,11 +59,17 @@ class TVShowsTableViewCell: UITableViewCell {
     }
     
     func loadPoster(movie: Movie) {
-        guard let path = movie.image?.original,
-            let url = URL(string: path) else { return }
-        lblTitle.text = movie.name
-        imgMovie.af.setImage(withURL: url, cacheKey: path, imageTransition: UIImageView.ImageTransition.crossDissolve(0.5)) { (response) in
-            self.actView.stopAnimating()
+        if let path = movie.image?.original,
+            let url = URL(string: path) {
+            lblTitle.text = movie.name
+            imgMovie.af.setImage(withURL: url, cacheKey: path, imageTransition: UIImageView.ImageTransition.crossDissolve(0.5)) { (image) in
+                    if let _ = image.error {
+                        self.imgMovie.image = UIImage(named: "imagePlaceholder")
+                    }
+                    self.actView.stopAnimating()
+            }
+        } else {
+            imgMovie.image = UIImage(named: "imagePlaceholder")
         }
     }
 }
@@ -87,7 +93,7 @@ extension TVShowsTableViewCell: ViewCodeProtocol {
         titleBackground.snp.makeConstraints { (mkr) in
             mkr.bottom.equalToSuperview().inset(20)
             mkr.width.equalToSuperview()
-            mkr.height.equalTo(70)
+            mkr.height.equalTo(40)
         }
         
         lblTitle.snp.makeConstraints { (mkr) in

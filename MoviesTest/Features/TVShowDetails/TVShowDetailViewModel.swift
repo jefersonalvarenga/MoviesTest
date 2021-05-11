@@ -1,5 +1,5 @@
 //
-//  MovieDetailViewModel.swift
+//  TVShowDetailViewModel.swift
 //  MoviesTest
 //
 //  Created by Jeferson Alvarenga on 08/05/21.
@@ -36,7 +36,6 @@ class TVShowDetailViewModel {
     init(movie: Movie) {
         self.movie = movie
     }
-    
     
     func viewWillAppear() {
         if let state = try? viewState.value(), state == .initial {

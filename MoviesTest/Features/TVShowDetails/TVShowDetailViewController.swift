@@ -1,5 +1,5 @@
 //
-//  MovieDetailViewController.swift
+//  TVShowDetailViewController.swift
 //  MoviesTest
 //
 //  Created by Jeferson Alvarenga on 08/05/21.
@@ -9,7 +9,7 @@
 import UIKit
 import RxSwift
 
-class TVShowsDetailViewController: UIViewController {
+class TVShowDetailViewController: UIViewController {
     
     struct Constant {
         static let space = 20
@@ -22,6 +22,9 @@ class TVShowsDetailViewController: UIViewController {
         static let timeAirs = "Time airs"
         static let forCellWithReuseIdentifier = "Cell"
         static let title = "TV Show Details"
+        static let season = "Season"
+        static let alertTitle = "Something went wrong"
+        static let alertMessage = "Please try again later"
     }
     
     lazy var scrollView: UIScrollView = {
@@ -30,7 +33,7 @@ class TVShowsDetailViewController: UIViewController {
         return scroll
     }()
     
-    lazy var stackView: UIView = {
+    lazy var containerView: UIView = {
         let stack = UIView()
         stack.backgroundColor = .black
         return stack
@@ -42,9 +45,14 @@ class TVShowsDetailViewController: UIViewController {
         img.clipsToBounds = true
         if let posterPath = viewModel.movie.image,
             let original = posterPath.original,
-            let medium = posterPath.medium,
             let url = URL(string: original) {
-            img.af.setImage(withURL: url, cacheKey: original, imageTransition: UIImageView.ImageTransition.crossDissolve(0.5))
+            img.af.setImage(withURL: url, cacheKey: original, imageTransition: UIImageView.ImageTransition.crossDissolve(0.5)) { (image) in
+                if let _ = image.error {
+                    self.imgPoster.image = UIImage(named: "imagePlaceholder")
+                }
+            }
+        } else {
+            img.image = UIImage(named: "imagePlaceholder")
         }
         return img
     }()
@@ -64,15 +72,15 @@ class TVShowsDetailViewController: UIViewController {
         return lbl
     }()
     
-    lazy var lblMovieSummary: UITextView = {
-        let lbl = UITextView()
-        lbl.attributedText = viewModel.movie.summary?.htmlToAttributedString
-        lbl.textColor = .white
-        lbl.backgroundColor = .clear
-        lbl.font = .systemFont(ofSize: 18)
-        lbl.textContainerInset = .zero
-        lbl.textContainer.lineFragmentPadding = 0
-        return lbl
+    lazy var txtMovieSummary: UITextView = {
+        let txt = UITextView()
+        txt.attributedText = viewModel.movie.summary?.htmlToAttributedString
+        txt.textColor = .white
+        txt.backgroundColor = .clear
+        txt.font = .systemFont(ofSize: 18)
+        txt.textContainerInset = .zero
+        txt.textContainer.lineFragmentPadding = 0
+        return txt
     }()
     
     lazy var lblTimes: UILabel = {
@@ -92,10 +100,8 @@ class TVShowsDetailViewController: UIViewController {
         clv.register(TVShowDetailCollectionViewCell.self, forCellWithReuseIdentifier: Constant.forCellWithReuseIdentifier)
         
         clv.backgroundColor = .clear
-        
         clv.dataSource = self
         clv.delegate = self
-        
         return clv
     }()
     
@@ -116,10 +122,8 @@ class TVShowsDetailViewController: UIViewController {
         clv.register(TVShowDetailCollectionViewCell.self, forCellWithReuseIdentifier: Constant.forCellWithReuseIdentifier)
         
         clv.backgroundColor = .clear
-        
         clv.dataSource = self
         clv.delegate = self
-        
         return clv
     }()
     
@@ -133,10 +137,8 @@ class TVShowsDetailViewController: UIViewController {
         clv.register(TVShowDetailCollectionViewCell.self, forCellWithReuseIdentifier: Constant.forCellWithReuseIdentifier)
         
         clv.backgroundColor = .clear
-        
         clv.dataSource = self
         clv.delegate = self
-        
         return clv
     }()
     
@@ -233,7 +235,7 @@ class TVShowsDetailViewController: UIViewController {
     
     func errorState(error: Error) {
         loadingView.stopAnimating()
-        print(error)
+        showAlert(title: Constant.alertTitle, message: Constant.alertMessage)
     }
     
     func showEpisodeDetail(episode: Episode, season: Season) {
@@ -241,7 +243,7 @@ class TVShowsDetailViewController: UIViewController {
     }
 }
 
-extension TVShowsDetailViewController: UICollectionViewDataSource {
+extension TVShowDetailViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == clvDates {
@@ -255,27 +257,26 @@ extension TVShowsDetailViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? TVShowDetailCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constant.forCellWithReuseIdentifier, for: indexPath) as? TVShowDetailCollectionViewCell else {
             return TVShowDetailCollectionViewCell()
         }
         if collectionView == clvDates {
-            cell.lblDay.text = viewModel.movie.schedule.days[indexPath.row]
-            cell.setBorderColor(color: .darkGray)
+            cell.setData(data: viewModel.movie.schedule.days[indexPath.row], color: .darkGray)
         } else if collectionView == clvSeasons {
             let season = viewModel.seasons[indexPath.row]
             if let number =  season.number {
-                cell.lblDay.text = "Season \(number.description)"
+                cell.setData(data: "\(Constant.season) \(number.description)", color: .white)
             } else {
-                cell.lblDay.text = "Season \(indexPath.row.description)"
+                cell.setData(data: "\(Constant.season) \(indexPath.row.description)", color: .white)
             }
         } else if collectionView == clvEpisodes {
-            cell.lblDay.text = viewModel.seasonEpisodes[indexPath.row].name
+            cell.setData(data: viewModel.seasonEpisodes[indexPath.row].name, color: .white)
         }
         return cell
     }
 }
 
-extension TVShowsDetailViewController: UICollectionViewDelegate {
+extension TVShowDetailViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == clvSeasons {
             let season = viewModel.seasons[indexPath.row]
@@ -294,22 +295,22 @@ extension TVShowsDetailViewController: UICollectionViewDelegate {
     }
 }
 
-extension TVShowsDetailViewController: ViewCodeProtocol {
+extension TVShowDetailViewController: ViewCodeProtocol {
     
     func viewAddElements() {
         view.addSubview(scrollView)
-        scrollView.addSubview(stackView)
-        stackView.addSubview(imgPoster)
-        stackView.addSubview(lblTitle)
-        stackView.addSubview(lblTimes)
-        stackView.addSubview(clvDates)
-        stackView.addSubview(lblGenres)
-        stackView.addSubview(lblMovieGenres)
-        stackView.addSubview(lblSummary)
-        stackView.addSubview(lblMovieSummary)
-        stackView.addSubview(lblSeasonEpisodes)
-        stackView.addSubview(clvSeasons)
-        stackView.addSubview(clvEpisodes)
+        scrollView.addSubview(containerView)
+        containerView.addSubview(imgPoster)
+        containerView.addSubview(lblTitle)
+        containerView.addSubview(lblTimes)
+        containerView.addSubview(clvDates)
+        containerView.addSubview(lblGenres)
+        containerView.addSubview(lblMovieGenres)
+        containerView.addSubview(lblSummary)
+        containerView.addSubview(txtMovieSummary)
+        containerView.addSubview(lblSeasonEpisodes)
+        containerView.addSubview(clvSeasons)
+        containerView.addSubview(clvEpisodes)
         view.addSubview(loadingView)
     }
     
@@ -320,7 +321,7 @@ extension TVShowsDetailViewController: ViewCodeProtocol {
             mkr.bottom.equalTo(view.layoutMarginsGuide)
         }
         
-        stackView.snp.makeConstraints { (mkr) in
+        containerView.snp.makeConstraints { (mkr) in
             mkr.left.right.equalTo(view)
             mkr.height.equalTo(Constant.viewHeight)
         }
@@ -361,14 +362,14 @@ extension TVShowsDetailViewController: ViewCodeProtocol {
             mkr.left.right.equalTo(lblTitle)
         }
         
-        lblMovieSummary.snp.makeConstraints { (mkr) in
+        txtMovieSummary.snp.makeConstraints { (mkr) in
             mkr.top.equalTo(lblSummary.snp.bottom).offset(Constant.nodeSpace)
             mkr.left.right.equalTo(lblTitle)
             mkr.height.equalTo(130)
         }
         
         lblSeasonEpisodes.snp.makeConstraints { (mkr) in
-            mkr.top.equalTo(lblMovieSummary.snp.bottom).offset(Constant.space)
+            mkr.top.equalTo(txtMovieSummary.snp.bottom).offset(Constant.space)
             mkr.left.right.equalTo(lblTitle)
         }
         
