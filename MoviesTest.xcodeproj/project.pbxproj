@@ -21,7 +21,6 @@
 		1E4293AA264A211900D0CFEF /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4293A9264A211900D0CFEF /* UIViewController+.swift */; };
 		1EB4E50D26472DDD009AD997 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB4E50C26472DDD009AD997 /* AppDelegate.swift */; };
 		1EB4E50F26472DDD009AD997 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB4E50E26472DDD009AD997 /* SceneDelegate.swift */; };
-		1EB4E51126472DDD009AD997 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB4E51026472DDD009AD997 /* ViewController.swift */; };
 		1EB4E51426472DDD009AD997 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EB4E51226472DDD009AD997 /* Main.storyboard */; };
 		1EB4E51626472DE1009AD997 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1EB4E51526472DE1009AD997 /* Assets.xcassets */; };
 		1EB4E51926472DE1009AD997 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EB4E51726472DE1009AD997 /* LaunchScreen.storyboard */; };
@@ -35,7 +34,6 @@
 		1EB4E5492647340D009AD997 /* TVShowDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB4E53B2647331F009AD997 /* TVShowDetailViewModel.swift */; };
 		1EB4E54A26473417009AD997 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB4E53E26473336009AD997 /* Movie.swift */; };
 		1EB4E54B2647342A009AD997 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB4E53526473305009AD997 /* Networking.swift */; };
-		1EB4E54C2647342E009AD997 /* NetworkingImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB4E53626473305009AD997 /* NetworkingImage.swift */; };
 		1EB4E54D264739A8009AD997 /* LightNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB4E543264733AC009AD997 /* LightNavigationController.swift */; };
 		671487D0128B98014421F9F4 /* Pods_MoviesTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2079E7310D66703953847374 /* Pods_MoviesTest.framework */; };
 		F9DD542D459A3D3B67A4D612 /* Pods_MoviesTestTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B0618BD7D19E0082CEB27B2 /* Pods_MoviesTestTests.framework */; };
@@ -67,7 +65,6 @@
 		1EB4E50926472DDD009AD997 /* MoviesTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoviesTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EB4E50C26472DDD009AD997 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1EB4E50E26472DDD009AD997 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		1EB4E51026472DDD009AD997 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		1EB4E51326472DDD009AD997 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1EB4E51526472DE1009AD997 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1EB4E51826472DE1009AD997 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -76,7 +73,6 @@
 		1EB4E52326472DE1009AD997 /* MoviesTestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesTestTests.swift; sourceTree = "<group>"; };
 		1EB4E52526472DE1009AD997 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1EB4E53526473305009AD997 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
-		1EB4E53626473305009AD997 /* NetworkingImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingImage.swift; sourceTree = "<group>"; };
 		1EB4E53726473317009AD997 /* TVShowsNetwortService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowsNetwortService.swift; sourceTree = "<group>"; };
 		1EB4E53826473317009AD997 /* TVShowsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowsViewModel.swift; sourceTree = "<group>"; };
 		1EB4E53926473317009AD997 /* TVShowsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowsViewController.swift; sourceTree = "<group>"; };
@@ -159,7 +155,6 @@
 				1EB4E52E26473271009AD997 /* Foundation */,
 				1EB4E50C26472DDD009AD997 /* AppDelegate.swift */,
 				1EB4E50E26472DDD009AD997 /* SceneDelegate.swift */,
-				1EB4E51026472DDD009AD997 /* ViewController.swift */,
 				1EB4E51226472DDD009AD997 /* Main.storyboard */,
 				1EB4E51526472DE1009AD997 /* Assets.xcassets */,
 				1EB4E51726472DE1009AD997 /* LaunchScreen.storyboard */,
@@ -241,7 +236,6 @@
 			isa = PBXGroup;
 			children = (
 				1EB4E53526473305009AD997 /* Networking.swift */,
-				1EB4E53626473305009AD997 /* NetworkingImage.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -467,7 +461,6 @@
 				1E4293972649962500D0CFEF /* TVShowDetailNetworkService.swift in Sources */,
 				1EB4E544264733EC009AD997 /* TVShowsViewController.swift in Sources */,
 				1E4293A8264A1DB300D0CFEF /* MovieImage.swift in Sources */,
-				1EB4E51126472DDD009AD997 /* ViewController.swift in Sources */,
 				1EB4E546264733FF009AD997 /* TVShowsViewModel.swift in Sources */,
 				1EB4E54B2647342A009AD997 /* Networking.swift in Sources */,
 				1E4293A2264A1D4100D0CFEF /* Episode.swift in Sources */,
@@ -475,7 +468,6 @@
 				1E42939526498DC900D0CFEF /* TVShowDetailCollectionViewCell.swift in Sources */,
 				1EB4E50D26472DDD009AD997 /* AppDelegate.swift in Sources */,
 				1EB4E5412647337D009AD997 /* APIKey.swift in Sources */,
-				1EB4E54C2647342E009AD997 /* NetworkingImage.swift in Sources */,
 				1E4293932649768F00D0CFEF /* String+.swift in Sources */,
 				1EB4E545264733FC009AD997 /* TVShowsNetwortService.swift in Sources */,
 				1EB4E54D264739A8009AD997 /* LightNavigationController.swift in Sources */,
