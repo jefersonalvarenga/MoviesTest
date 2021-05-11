@@ -10,12 +10,21 @@ import Foundation
 import RxSwift
 
 
-enum TVShowsViewState {
+enum TVShowsViewState: Equatable {
     case initial
     case loading
     case dataLoaded
     case newDataLoaded([IndexPath])
     case error(Error)
+    
+    static func == (lhs: TVShowsViewState, rhs: TVShowsViewState) -> Bool {
+        switch (lhs, rhs) {
+        case (.initial, .initial):
+            return true
+        default:
+            return false
+        }
+    }
 }
 
 class TVShowsViewModel {
@@ -37,7 +46,9 @@ class TVShowsViewModel {
     }
     
     func viewWillAppear() {
-        loadMovies()
+        if let state = try? viewState.value(), state == .initial {
+            loadMovies()
+        }
     }
     
     func loadMovies() {

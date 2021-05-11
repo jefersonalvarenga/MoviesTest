@@ -45,14 +45,12 @@ class EpisodeDetailViewController: UIViewController {
             let url = URL(string: original) {
             img.af.setImage(withURL: url, cacheKey: original, imageTransition: UIImageView.ImageTransition.crossDissolve(0.5), completion: { (image) in
                 if let error = image.error {
-                    self.loadingView.stopAnimating()
                     img.image = UIImage(named: Constant.imagePlaceholder)
-                } else {
-                    self.dataLoaded()
                 }
+                self.loadingView.stopAnimating()
             })
         } else {
-            self.loadingView.stopAnimating()
+            loadingView.stopAnimating()
             img.image = UIImage(named: Constant.imagePlaceholder)
         }
         return img
@@ -120,15 +118,6 @@ class EpisodeDetailViewController: UIViewController {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
-    }
-    
-    func dataLoaded() {
-        loadingView.stopAnimating()
-    }
-    
-    func dataError() {
-        loadingView.stopAnimating()
-        showAlert(title: Constant.alertTitle, message: Constant.alertMessage)
     }
 }
 

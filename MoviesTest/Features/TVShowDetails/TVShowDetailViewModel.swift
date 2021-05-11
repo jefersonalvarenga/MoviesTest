@@ -9,6 +9,12 @@
 import RxSwift
 
 enum TVShowDetailViewState: Equatable {
+    case initial
+    case loading
+    case dataLoaded
+    case filtered
+    case error(Error)
+    
     static func == (lhs: TVShowDetailViewState, rhs: TVShowDetailViewState) -> Bool {
         switch (lhs, rhs) {
         case (.initial, .initial):
@@ -17,12 +23,6 @@ enum TVShowDetailViewState: Equatable {
             return false
         }
     }
-    
-    case initial
-    case loading
-    case dataLoaded
-    case filtered
-    case error(Error)
 }
 
 class TVShowDetailViewModel {
