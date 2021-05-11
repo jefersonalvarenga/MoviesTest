@@ -200,7 +200,7 @@ class TVShowDetailViewController: UIViewController {
             .subscribe(onNext: { (viewState) in
             switch viewState {
                 case .initial:
-                    self.initialState()
+                    break
                 case .loading:
                     self.loadingState()
                 case .dataLoaded:
@@ -214,10 +214,6 @@ class TVShowDetailViewController: UIViewController {
         }).disposed(by: disposeBag)
     }
     
-    func initialState() {
-        
-    }
-    
     func loadingState() {
         loadingView.startAnimating()
     }
@@ -225,6 +221,7 @@ class TVShowDetailViewController: UIViewController {
     func dataLoadedState() {
         loadingView.stopAnimating()
         clvSeasons.reloadData()
+        perform(#selector(highlightFirstCell), with: nil, afterDelay: 0.5)
     }
     
     func dataFiltered() {
@@ -240,6 +237,11 @@ class TVShowDetailViewController: UIViewController {
     
     func showEpisodeDetail(episode: Episode, season: Season) {
         navigationController?.pushViewController(EpisodeDetailViewController(episode: episode, season: season), animated: true)
+    }
+    
+    @objc func highlightFirstCell() {
+        let index = IndexPath(row: 0, section: 0)
+        clvSeasons.selectItem(at: index, animated: true, scrollPosition: .left)
     }
 }
 
@@ -262,6 +264,7 @@ extension TVShowDetailViewController: UICollectionViewDataSource {
         }
         if collectionView == clvDates {
             cell.setData(data: viewModel.movie.schedule.days[indexPath.row], color: .darkGray)
+            cell.isUserInteractionEnabled = false
         } else if collectionView == clvSeasons {
             let season = viewModel.seasons[indexPath.row]
             if let number =  season.number {
@@ -284,10 +287,6 @@ extension TVShowDetailViewController: UICollectionViewDelegate {
         } else if collectionView == clvEpisodes {
             if let index = clvSeasons.indexPathsForSelectedItems?.first {
                 let season = viewModel.seasons[index.row]
-                let episode = viewModel.seasonEpisodes[indexPath.row]
-                showEpisodeDetail(episode: episode, season: season)
-            } else {
-                let season = viewModel.seasons[0]
                 let episode = viewModel.seasonEpisodes[indexPath.row]
                 showEpisodeDetail(episode: episode, season: season)
             }

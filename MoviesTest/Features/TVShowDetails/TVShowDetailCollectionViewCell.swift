@@ -19,6 +19,12 @@ class TVShowDetailCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override var isSelected: Bool {
+        didSet {
+            lblData.layer.borderColor = isSelected ? UIColor.red.cgColor : UIColor.white.cgColor
+        }
+    }
+    
     lazy var lblData: UILabel = {
         let lbl = UILabel()
         lbl.layer.borderColor = UIColor.white.cgColor
