@@ -56,12 +56,13 @@ class TVShowsTableViewCell: UITableViewCell {
         imgMovie.af.cancelImageRequest()
         imgMovie.layer.removeAllAnimations()
         imgMovie.image = nil
+        lblTitle.text = nil
     }
     
     func loadPoster(movie: Movie) {
+        lblTitle.text = movie.name
         if let path = movie.image?.original,
             let url = URL(string: path) {
-            lblTitle.text = movie.name
             imgMovie.af.setImage(withURL: url, cacheKey: path, imageTransition: UIImageView.ImageTransition.crossDissolve(0.5)) { (image) in
                     if let _ = image.error {
                         self.imgMovie.image = UIImage(named: "imagePlaceholder")
