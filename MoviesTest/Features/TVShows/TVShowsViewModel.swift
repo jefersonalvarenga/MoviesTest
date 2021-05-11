@@ -91,7 +91,7 @@ class TVShowsViewModel {
             self.viewState.onNext(.dataLoaded)
         }, onFailure: {(error) in
             self.isFetchInProgress = false
-            print(error)
+            self.viewState.onNext(.error(error))
         })
     }
     

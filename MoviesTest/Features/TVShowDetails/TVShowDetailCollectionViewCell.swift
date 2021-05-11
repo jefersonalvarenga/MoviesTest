@@ -1,5 +1,5 @@
 //
-//  TVShowDayCollectionViewCell.swift
+//  TVShowDetailCollectionViewCell.swift
 //  MoviesTest
 //
 //  Created by Jeferson Alvarenga on 10/05/21.
@@ -19,7 +19,7 @@ class TVShowDetailCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    lazy var lblDay: UILabel = {
+    lazy var lblData: UILabel = {
         let lbl = UILabel()
         lbl.layer.borderColor = UIColor.white.cgColor
         lbl.layer.borderWidth = 1
@@ -28,18 +28,19 @@ class TVShowDetailCollectionViewCell: UICollectionViewCell {
         return lbl
     }()
     
-    func setBorderColor(color: UIColor) {
-        lblDay.layer.borderColor = color.cgColor
+    func setData(data: String?, color: UIColor?) {
+        lblData.text = data
+        lblData.layer.borderColor = color?.cgColor
     }
 }
 
 extension TVShowDetailCollectionViewCell: ViewCodeProtocol {
     func viewAddElements() {
-        contentView.addSubview(lblDay)
+        contentView.addSubview(lblData)
     }
     
     func viewConstraintElements() {
-        lblDay.snp.makeConstraints { (mkr) in
+        lblData.snp.makeConstraints { (mkr) in
             mkr.edges.equalToSuperview()
         }
     }

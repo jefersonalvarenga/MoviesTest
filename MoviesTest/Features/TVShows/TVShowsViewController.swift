@@ -30,6 +30,8 @@ class TVShowsViewController: UIViewController {
         static let title = "TV Shows"
         static let tblReuseIdentifier = "cellIdentifier"
         static let searchBarPlaceholder = "Search TV show"
+        static let alertTitle = "Something went wrong"
+        static let alertMessage = "Please try again later"
     }
     
     let disposeBag = DisposeBag()
@@ -46,18 +48,16 @@ class TVShowsViewController: UIViewController {
         return tbl
     }()
     
-    lazy var actView: UIActivityIndicatorView = {
-        let act = UIActivityIndicatorView()
-        act.hidesWhenStopped = true
-        return act
-    }()
-    
     lazy var searchBar: UISearchController = {
         let sBar = UISearchController(searchResultsController: nil)
         sBar.searchBar.barStyle = .black
         sBar.obscuresBackgroundDuringPresentation = false
         sBar.searchBar.placeholder = Constant.searchBarPlaceholder
         return sBar
+    }()
+    
+    lazy var loadingView: LoadingView = {
+        return LoadingView()
     }()
     
     let viewModel = TVShowsViewModel()
@@ -119,25 +119,26 @@ extension TVShowsViewController {
     
     func initialState() {
         tblMovies.isHidden = true
+        searchBar.searchBar.isUserInteractionEnabled = false
     }
     
     func loadingState() {
-        actView.startAnimating()
+        loadingView.startAnimating()
     }
     
     func dataLoadedState() {
-        actView.stopAnimating()
-        tblMovies.isHidden = false
+        searchBar.searchBar.isUserInteractionEnabled = true
+        loadingView.stopAnimating()
         tblMovies.reloadData()
     }
     
     func newDataLoadedState(newIndexPathsToReload: [IndexPath]) {
-        actView.stopAnimating()
+        loadingView.stopAnimating()
         tblMovies.insertRows(at: newIndexPathsToReload, with: .automatic)
     }
     
     func errorState(error: Error) {
-        print(error)
+        showAlert(title: Constant.alertTitle, message: Constant.alertMessage)
     }
 }
 
@@ -145,7 +146,7 @@ extension TVShowsViewController: ViewCodeProtocol {
     
     func viewAddElements() {
         view.addSubview(tblMovies)
-        view.addSubview(actView)
+        view.addSubview(loadingView)
         navigationItem.searchController = searchBar
     }
     
@@ -156,8 +157,8 @@ extension TVShowsViewController: ViewCodeProtocol {
             mkr.left.right.bottom.equalToSuperview()
         }
         
-        actView.snp.makeConstraints { (mkr) in
-            mkr.center.equalToSuperview()
+        loadingView.snp.makeConstraints { (mkr) in
+            mkr.edges.equalToSuperview()
         }
     }
 }
@@ -184,7 +185,7 @@ extension TVShowsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let movie = viewModel.source[indexPath.row]
-        navigationController?.pushViewController(MovieDetailViewController(movie: movie), animated: true)
+        navigationController?.pushViewController(TVShowDetailViewController(movie: movie), animated: true)
     }
 }
 

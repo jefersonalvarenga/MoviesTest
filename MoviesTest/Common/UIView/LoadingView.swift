@@ -32,32 +32,29 @@ class LoadingView: UIView {
         let view = UIActivityIndicatorView(style: .large)
         view.hidesWhenStopped = true
         view.color = .white
+        view.startAnimating()
         return view
     }()
     
     func startAnimating() {
-        if !isPresented {
-            isUserInteractionEnabled = true
-            isPresented = true
-            layer.removeAllAnimations()
-            UIView.animate(withDuration: 0.3, delay: 0, options: [.beginFromCurrentState], animations: {
-                self.bgView.alpha = 0.9
-                self.activeIndicatorView.startAnimating()
-            })
-        }
+        isUserInteractionEnabled = true
+        isPresented = true
+        layer.removeAllAnimations()
+        UIView.animate(withDuration: 0.3, delay: 0, options: [.beginFromCurrentState], animations: {
+            self.bgView.alpha = 0.9
+            self.activeIndicatorView.startAnimating()
+        })
     }
 
     func stopAnimating() {
-        if isPresented {
-            activeIndicatorView.stopAnimating()
-            layer.removeAllAnimations()
-            UIView.animate(withDuration: 0.3, delay: 0, options: [.beginFromCurrentState], animations: {
-                self.bgView.alpha = 0
-            }, completion: { (bool) in
-                self.isPresented = false
-                self.isUserInteractionEnabled = false
-            })
-        }
+        activeIndicatorView.stopAnimating()
+        layer.removeAllAnimations()
+        UIView.animate(withDuration: 0.3, delay: 0, options: [.beginFromCurrentState], animations: {
+            self.bgView.alpha = 0
+        }, completion: { (bool) in
+            self.isPresented = false
+            self.isUserInteractionEnabled = false
+        })
     }
 }
 
