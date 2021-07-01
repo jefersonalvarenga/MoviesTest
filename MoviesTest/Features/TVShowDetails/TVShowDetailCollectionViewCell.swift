@@ -21,22 +21,26 @@ class TVShowDetailCollectionViewCell: UICollectionViewCell {
     
     override var isSelected: Bool {
         didSet {
-            lblData.layer.borderColor = isSelected ? UIColor.red.cgColor : UIColor.white.cgColor
+            lblData.layer.borderColor = isSelected ? UIColor.red.cgColor : traitCollection.userInterfaceStyle == .dark ? UIColor.white.cgColor : UIColor.black.cgColor
         }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        lblData.layer.borderColor = isSelected ? UIColor.red.cgColor : traitCollection.userInterfaceStyle == .dark ? UIColor.white.cgColor : UIColor.black.cgColor
     }
     
     lazy var lblData: UILabel = {
         let lbl = UILabel()
-        lbl.layer.borderColor = UIColor.white.cgColor
+        lbl.layer.borderColor = traitCollection.userInterfaceStyle == .dark ? UIColor.white.cgColor : UIColor.black.cgColor
         lbl.layer.borderWidth = 1
         lbl.textAlignment = .center
-        lbl.textColor = .white
         return lbl
     }()
     
     func setData(data: String?, color: UIColor?) {
         lblData.text = data
-        lblData.layer.borderColor = color?.cgColor
+        //lblData.layer.borderColor = color?.cgColor
     }
 }
 

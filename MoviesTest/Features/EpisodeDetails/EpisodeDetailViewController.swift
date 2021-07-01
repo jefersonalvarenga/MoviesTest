@@ -32,7 +32,6 @@ class EpisodeDetailViewController: UIViewController {
     
     lazy var containerView: UIView = {
         let stack = UIView()
-        stack.backgroundColor = .black
         return stack
     }()
     
@@ -60,14 +59,12 @@ class EpisodeDetailViewController: UIViewController {
         let lbl = UILabel()
         lbl.font = .boldSystemFont(ofSize: 25)
         lbl.text = viewModel.episode.name
-        lbl.textColor = .white
         return lbl
     }()
     
     lazy var lblSummary: UILabel = {
         let lbl = UILabel()
         lbl.text = Constant.summary
-        lbl.textColor = .white
         return lbl
     }()
     
@@ -75,14 +72,13 @@ class EpisodeDetailViewController: UIViewController {
         let lbl = UILabel()
         lbl.font = .boldSystemFont(ofSize: 18)
         lbl.text = "\(Constant.season) \(viewModel.season.number?.description ?? Constant.notAvailable), \(Constant.episode) \(viewModel.episode.number?.description ?? Constant.notAvailable)"
-        lbl.textColor = .white
         return lbl
     }()
     
     lazy var lblMovieSummary: UITextView = {
         let lbl = UITextView()
         lbl.attributedText = viewModel.episode.summary?.htmlToAttributedString
-        lbl.textColor = .white
+        lbl.textColor = traitCollection.userInterfaceStyle == .dark ? .white : .black
         lbl.backgroundColor = .clear
         lbl.font = .systemFont(ofSize: 18)
         lbl.textContainerInset = .zero
@@ -111,13 +107,20 @@ class EpisodeDetailViewController: UIViewController {
         // Do any additional setup after loading the view.
         title = Constant.title
         navigationItem.largeTitleDisplayMode = .never
-        view.backgroundColor = .black
+        view.backgroundColor = traitCollection.userInterfaceStyle == .dark ? .black : .white
         viewCodeSetup()
         scrollView.contentSize.height = Constant.viewHeight
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if traitCollection.userInterfaceStyle == .dark {
+            view.backgroundColor = .black
+            lblMovieSummary.textColor = .white
+        } else {
+            view.backgroundColor = .white
+            lblMovieSummary.textColor = .black
+        }
     }
 }
 
