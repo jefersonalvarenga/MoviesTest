@@ -10,4 +10,6 @@ Cocoapods version 1.10.1
 
 Please clone the repository and run pod install using the terminal on the main project folder.
 
-After the Cocoapods install the dependencies, please pen the .workspace file, run, done!
+After all dependencies are installed, please open the .xcworkspace file, run, done!
+
+I would love to rear your comments ;)
