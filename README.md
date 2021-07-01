@@ -1,6 +1,6 @@
 # MoviesTest
 
-This is a project created using MVVM archtecture using reactive programming, UI created programatically and further advanced design patterns.
+This is a project created using MVVM archtecture, reactive programming, UI created programatically and further advanced design patterns.
 
 Installation requirements:
 
