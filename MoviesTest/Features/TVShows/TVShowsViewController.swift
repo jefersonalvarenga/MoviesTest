@@ -42,7 +42,6 @@ class TVShowsViewController: UIViewController {
         tbl.delegate = self
         tbl.prefetchDataSource = self
         tbl.register(TVShowsTableViewCell.self, forCellReuseIdentifier: Constant.tblReuseIdentifier)
-        tbl.backgroundColor = .black
         tbl.tableFooterView?.isHidden = true
         tbl.tableHeaderView?.isHidden = true
         return tbl
@@ -50,7 +49,6 @@ class TVShowsViewController: UIViewController {
     
     lazy var searchBar: UISearchController = {
         let sBar = UISearchController(searchResultsController: nil)
-        sBar.searchBar.barStyle = .black
         sBar.obscuresBackgroundDuringPresentation = false
         sBar.searchBar.placeholder = Constant.searchBarPlaceholder
         return sBar
@@ -66,7 +64,6 @@ class TVShowsViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        view.backgroundColor = .black
         title = Constant.title
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
@@ -79,8 +76,13 @@ class TVShowsViewController: UIViewController {
         viewModel.viewWillAppear()
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if traitCollection.userInterfaceStyle == .dark {
+            tblMovies.backgroundColor = .black
+        } else {
+            tblMovies.backgroundColor = .white
+        }
     }
     
     func observerSetup() {

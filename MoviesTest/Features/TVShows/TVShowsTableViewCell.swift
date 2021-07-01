@@ -22,14 +22,13 @@ class TVShowsTableViewCell: UITableViewCell {
     
     lazy var titleBackground: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = .clear
         return view
     }()
     
     lazy var lblTitle: UILabel = {
         let lbl = UILabel()
         lbl.font = .boldSystemFont(ofSize: 20)
-        lbl.textColor = .black
         lbl.numberOfLines = 0
         return lbl
     }()
@@ -43,7 +42,6 @@ class TVShowsTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = .black
         viewCodeSetup()
     }
 
@@ -99,7 +97,7 @@ extension TVShowsTableViewCell: ViewCodeProtocol {
         
         lblTitle.snp.makeConstraints { (mkr) in
             mkr.left.right.equalToSuperview().inset(20)
-            mkr.centerY.equalTo(titleBackground)
+            mkr.top.equalTo(titleBackground)
         }
         
         actView.snp.makeConstraints { (mkr) in

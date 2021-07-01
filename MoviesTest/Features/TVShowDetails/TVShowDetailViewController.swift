@@ -35,7 +35,6 @@ class TVShowDetailViewController: UIViewController {
     
     lazy var containerView: UIView = {
         let stack = UIView()
-        stack.backgroundColor = .black
         return stack
     }()
     
@@ -61,21 +60,19 @@ class TVShowDetailViewController: UIViewController {
         let lbl = UILabel()
         lbl.font = .boldSystemFont(ofSize: 25)
         lbl.text = viewModel.movie.name
-        lbl.textColor = .white
         return lbl
     }()
     
     lazy var lblSummary: UILabel = {
         let lbl = UILabel()
         lbl.text = Constant.summary
-        lbl.textColor = .white
         return lbl
     }()
     
     lazy var txtMovieSummary: UITextView = {
         let txt = UITextView()
         txt.attributedText = viewModel.movie.summary?.htmlToAttributedString
-        txt.textColor = .white
+        txt.textColor = traitCollection.userInterfaceStyle == .dark ? .white : .black
         txt.backgroundColor = .clear
         txt.font = .systemFont(ofSize: 18)
         txt.textContainerInset = .zero
@@ -86,7 +83,6 @@ class TVShowDetailViewController: UIViewController {
     lazy var lblTimes: UILabel = {
         let lbl = UILabel()
         lbl.text = "\(Constant.timeAirs) \(viewModel.movie.schedule.time)"
-        lbl.textColor = .white
         return lbl
     }()
     
@@ -108,7 +104,6 @@ class TVShowDetailViewController: UIViewController {
     lazy var lblSeasonEpisodes: UILabel = {
         let lbl = UILabel()
         lbl.text = Constant.seasonEpisodes
-        lbl.textColor = .white
         return lbl
     }()
     
@@ -145,14 +140,12 @@ class TVShowDetailViewController: UIViewController {
     lazy var lblGenres: UILabel = {
         let lbl = UILabel()
         lbl.text = Constant.genres
-        lbl.textColor = .white
         return lbl
     }()
     
     lazy var lblMovieGenres: UILabel = {
         let lbl = UILabel()
         lbl.text = viewModel.movie.genres.joined(separator: ", ")
-        lbl.textColor = .white
         return lbl
     }()
     
@@ -178,7 +171,7 @@ class TVShowDetailViewController: UIViewController {
         // Do any additional setup after loading the view.
         title = Constant.title
         navigationItem.largeTitleDisplayMode = .never
-        view.backgroundColor = .black
+        view.backgroundColor = traitCollection.userInterfaceStyle == .dark ? .black : .white
         viewCodeSetup()
         scrollView.contentSize.height = Constant.viewHeight
         observerSetup()
@@ -189,8 +182,15 @@ class TVShowDetailViewController: UIViewController {
         viewModel.viewWillAppear()
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if traitCollection.userInterfaceStyle == .dark {
+            view.backgroundColor = .black
+            txtMovieSummary.textColor = .white
+        } else {
+            view.backgroundColor = .white
+            txtMovieSummary.textColor = .black
+        }
     }
     
     func observerSetup() {
