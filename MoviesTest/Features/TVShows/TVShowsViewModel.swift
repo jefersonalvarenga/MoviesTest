@@ -36,6 +36,7 @@ class TVShowsViewModel {
     private var nextPage = 0
     private var isFetchInProgress = false
     private var isSearch = false
+    private let service: TVShowsNetwortService
     
     var source: [Movie] {
         if isSearch {
@@ -45,9 +46,18 @@ class TVShowsViewModel {
         }
     }
     
+    init(service: TVShowsNetwortService) {
+        self.service = service
+    }
+    
     func viewWillAppear() {
-        if let state = try? viewState.value(), state == .initial {
-            loadMovies()
+        if let state = try? viewState.value() {
+            switch state {
+            case .initial:
+                loadMovies()
+            default:
+                break
+            }
         }
     }
     
@@ -57,11 +67,10 @@ class TVShowsViewModel {
         }
         viewState.onNext(.loading)
         isFetchInProgress = true
-        let networkService = TVShowsNetwortService()
-        networkService.loadMovies(page: nextPage, onSuccess: { (movies) in
+        service.loadMovies(page: nextPage, onSuccess: { movies in
             self.isFetchInProgress = false
             self.nextPage += 1
-            if self.movies.count == 0 {
+            if self.movies.isEmpty {
                 self.movies.append(contentsOf: movies)
                 self.viewState.onNext(.dataLoaded)
             } else {
@@ -87,17 +96,17 @@ class TVShowsViewModel {
         isSearch = true
         viewState.onNext(.loading)
         isFetchInProgress = true
-        let networkService = TVShowsNetwortService()
-        networkService.searchMovies(term: term, onSuccess: { (movies) in
+        service.searchMovies(term: term, onSuccess: { movies in
             self.isFetchInProgress = false
             self.searchMovies = movies.map({ (item) -> Movie in
-                self.isFetchInProgress = false
-                return Movie(id: item.show.id, name:
-                                item.show.name,
+                return Movie(
+                                id: item.show.id,
+                                name: item.show.name,
                                 image: item.show.image,
                                 summary: item.show.summary,
                                 score: item.score,
-                                schedule: item.show.schedule, genres: item.show.genres)
+                                schedule: item.show.schedule,
+                                genres: item.show.genres)
             })
             self.viewState.onNext(.dataLoaded)
         }, onFailure: {(error) in
@@ -110,20 +119,5 @@ class TVShowsViewModel {
       let startIndex = movies.count - tvShows.count
       let endIndex = startIndex + tvShows.count
       return (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
-    }
-    
-    func filter(term: String) {
-        if !isSearch {
-            isSearch = true
-            backupMovies = movies
-        } else {
-            if term.isEmpty {
-                isSearch = false
-                movies = backupMovies
-            } else {
-                movies = movies.filter{$0.name.localizedCaseInsensitiveContains(term)}
-            }
-            viewState.onNext(.dataLoaded)
-        }
     }
 }

@@ -156,8 +156,8 @@ class TVShowDetailViewController: UIViewController {
     let viewModel: TVShowDetailViewModel
     let disposeBag = DisposeBag()
     
-    init(movie: Movie) {
-        viewModel = TVShowDetailViewModel(movie: movie)
+    init(viewModel: TVShowDetailViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -205,7 +205,7 @@ class TVShowDetailViewController: UIViewController {
                     self.loadingState()
                 case .dataLoaded:
                     self.dataLoadedState()
-                case .filtered:
+                case .dataLoadedSeasons:
                     self.dataFiltered()
                 case .error(let error):
                     self.errorState(error: error)
@@ -236,7 +236,8 @@ class TVShowDetailViewController: UIViewController {
     }
     
     func showEpisodeDetail(episode: Episode, season: Season) {
-        navigationController?.pushViewController(EpisodeDetailViewController(episode: episode, season: season), animated: true)
+        let episodeViewModel = EpisodeDetailViewModel(episode: episode, season: season)
+        navigationController?.pushViewController(EpisodeDetailViewController(viewModel: episodeViewModel), animated: true)
     }
     
     @objc func highlightFirstCell() {

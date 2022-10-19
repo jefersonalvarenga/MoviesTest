@@ -8,6 +8,12 @@
 
 class TVShowDetailNetworkService {
     
+    private let network: Networking
+    
+    init(network: Networking = Networking()) {
+        self.network = network
+    }
+    
     func loadSeasons(movieID: Int, onSuccess: @escaping ([Season]) -> Void, onFailure: @escaping onFailure) {
         let url = String(format:APIKey.baseURL, String(format: APIKey.season, movieID))
         callNetwork(url: url, onSuccess: onSuccess, onFailure: onFailure)
@@ -19,7 +25,6 @@ class TVShowDetailNetworkService {
     }
     
     func callNetwork<T: Codable>(url: String, onSuccess: @escaping ([T]) -> Void, onFailure: @escaping onFailure) {
-        let network = Networking()
         network.request(url, onSuccess: { (movies) in
             onSuccess(movies)
         }, onFailure:  { (error) in

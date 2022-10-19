@@ -58,8 +58,17 @@ class TVShowsViewController: UIViewController {
         return LoadingView()
     }()
     
-    let viewModel = TVShowsViewModel()
-
+    private let viewModel: TVShowsViewModel
+    
+    init(viewModel: TVShowsViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -187,7 +196,9 @@ extension TVShowsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let movie = viewModel.source[indexPath.row]
-        navigationController?.pushViewController(TVShowDetailViewController(movie: movie), animated: true)
+        let detailService = TVShowDetailNetworkService()
+        let detailViewModel = TVShowDetailViewModel(service: detailService, movie: movie)
+        navigationController?.pushViewController(TVShowDetailViewController(viewModel: detailViewModel), animated: true)
     }
 }
 

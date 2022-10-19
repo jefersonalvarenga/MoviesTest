@@ -92,8 +92,8 @@ class EpisodeDetailViewController: UIViewController {
     
     let viewModel: EpisodeDetailViewModel
     
-    init(episode: Episode, season: Season) {
-        viewModel = EpisodeDetailViewModel(episode: episode, season: season)
+    init(viewModel: EpisodeDetailViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     

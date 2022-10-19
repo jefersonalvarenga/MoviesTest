@@ -6,9 +6,9 @@ target 'MoviesTest' do
   use_frameworks!
 
   # Pods for MoviesTest
-  pod 'SnapKit', '~> 5.0.0'
-  pod 'RxSwift', '5.0.0'
-  pod 'RxCocoa', '5.0.0'
+  pod 'SnapKit', '~> 5.6.0'
+  pod 'RxSwift', '6.5.0'
+  pod 'RxCocoa', '6.5.0'
   pod 'Alamofire', '~> 5.0'
   pod 'AlamofireImage', '~> 4.1'
 
