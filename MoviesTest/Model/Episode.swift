@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Episode: Codable {
+struct Episode: Decodable {
     let id: Int
     let number: Int?
     let name: String

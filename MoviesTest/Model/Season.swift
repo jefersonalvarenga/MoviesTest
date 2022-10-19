@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Season: Codable {
+struct Season: Decodable {
     let id: Int
     let number: Int?
 }

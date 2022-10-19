@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Dates: Codable {
+struct Dates: Decodable {
     let time: String
     let days: [String]
 }

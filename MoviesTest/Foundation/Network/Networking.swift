@@ -22,7 +22,7 @@ class Networking: NSObject {
     
     let manager = Session()
     
-    public func request<T: Codable>(_
+    public func request<T: Decodable>(_
                                         urlString: String,
                                         body: Dictionary<String, Any>? = nil,
                                         method: String = "GET",

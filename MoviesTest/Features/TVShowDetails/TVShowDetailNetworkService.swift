@@ -24,7 +24,7 @@ class TVShowDetailNetworkService {
         callNetwork(url: url, onSuccess: onSuccess, onFailure: onFailure)
     }
     
-    func callNetwork<T: Codable>(url: String, onSuccess: @escaping ([T]) -> Void, onFailure: @escaping onFailure) {
+    func callNetwork<T: Decodable>(url: String, onSuccess: @escaping ([T]) -> Void, onFailure: @escaping onFailure) {
         network.request(url, onSuccess: { (movies) in
             onSuccess(movies)
         }, onFailure:  { (error) in

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct MovieSearch: Codable {
+struct MovieSearch: Decodable {
     let score: Double
     let show: Movie
 }

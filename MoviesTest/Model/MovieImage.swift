@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct MovieImage: Codable {
+struct MovieImage: Decodable {
     let medium: String?
     let original: String?
 }
